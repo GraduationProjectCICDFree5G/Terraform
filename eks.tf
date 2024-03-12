@@ -3,7 +3,7 @@ module "eks" {
   version = "~> 19.0"
 
   cluster_name    = "9G-Core-Net"
-  cluster_version = "1.27"
+  cluster_version = "1.29"
 
   cluster_endpoint_public_access = true
 
@@ -72,15 +72,21 @@ module "eks" {
   }
 
   aws_auth_roles = [
-    {
-      rolearn  = "arn:aws:iam::471112895654:role/AWSServiceRoleForAmazonEKS"
-      username = "role1"
+
+    { rolearn  = "arn:aws:iam::471112895654:role/eks-cluster-role"
+      username = "GradProject"
       groups   = ["system:masters"]
-    }, 
-    { rolearn = "arn:aws:iam::471112895654:role/EKS_Admin" 
-     username = "Jenkins-Instance" 
-     groups = ["system:masters"] 
     },
+    {
+      rolearn  = "arn:aws:iam::471112895654:role/eks-node-role"
+      username = "GradProject"
+      groups   = ["system:masters"]
+    },
+    {
+      rolearn  = "arn:aws:iam::471112895654:role/pod"
+      username = "GradProject"
+      groups   = ["system:masters"]
+    }
   ]
 
   aws_auth_users = [
@@ -88,7 +94,13 @@ module "eks" {
       userarn  = "arn:aws:iam::471112895654:user/GradProject"
       username = "GradProject"
       groups   = ["system:masters"]
-    }
+    },
+    {
+      userarn  = "arn:aws:iam::471112895654:user/new"
+      username = "new"
+      groups   = ["system:masters"]
+    },
+
   ]
 
   aws_auth_accounts = [
