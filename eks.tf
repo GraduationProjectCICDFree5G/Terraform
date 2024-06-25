@@ -18,8 +18,9 @@ module "eks" {
 
       timeouts = {
         create = "25m"
-        delete = "10m"
+        delete = "15m"
       }
+  
     }
     kube-proxy = {
       most_recent = true
@@ -51,7 +52,7 @@ module "eks" {
       source_security_group_id = aws_security_group.additional.id
     }
   }
-  
+
   node_security_group_additional_rules = {
     ingress_self_all = {
       description = "Node to node all ports/protocols"
