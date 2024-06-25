@@ -2,8 +2,8 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 19.0"
 
-  cluster_name    = "9G-Core-Net"
-  cluster_version = "1.29"
+  cluster_name    = "5G-Core-Net"
+  cluster_version = "1.30"
 
   cluster_endpoint_public_access = true
 
@@ -51,7 +51,7 @@ module "eks" {
       source_security_group_id = aws_security_group.additional.id
     }
   }
-
+  
   node_security_group_additional_rules = {
     ingress_self_all = {
       description = "Node to node all ports/protocols"
@@ -73,38 +73,28 @@ module "eks" {
 
   aws_auth_roles = [
 
-    { rolearn  = "arn:aws:iam::471112895654:role/eks-cluster-role"
-      username = "GradProject"
+    { rolearn  = "arn:aws:iam::339712807342:role/eks-cluster-role"
+      username = "Gradproj"
       groups   = ["system:masters"]
     },
+    
     {
-      rolearn  = "arn:aws:iam::471112895654:role/eks-node-role"
-      username = "GradProject"
-      groups   = ["system:masters"]
-    },
-    {
-      rolearn  = "arn:aws:iam::471112895654:role/pod"
-      username = "GradProject"
+      rolearn  = "arn:aws:iam::339712807342:role/eks-pods-role"
+      username = "Gradproj"
       groups   = ["system:masters"]
     }
   ]
 
   aws_auth_users = [
     {
-      userarn  = "arn:aws:iam::471112895654:user/GradProject"
-      username = "GradProject"
+      userarn  = "arn:aws:iam::339712807342:user/Gradproj"
+      username = "Gradproj"
       groups   = ["system:masters"]
-    },
-    {
-      userarn  = "arn:aws:iam::471112895654:user/new"
-      username = "new"
-      groups   = ["system:masters"]
-    },
-
+    }
   ]
 
   aws_auth_accounts = [
-    "471112895654"
+    "339712807342"
   ]
 
   tags = {
