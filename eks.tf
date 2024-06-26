@@ -3,7 +3,7 @@ module "eks" {
   version = "~> 19.0"
 
   cluster_name    = "5G-Core-Net"
-  cluster_version = "1.30"
+  cluster_version = "1.29"
 
   cluster_endpoint_public_access = true
 
@@ -75,13 +75,19 @@ module "eks" {
   aws_auth_roles = [
 
     { rolearn  = "arn:aws:iam::339712807342:role/eks-cluster-role"
-      username = "Gradproj"
+      username = "role2"
       groups   = ["system:masters"]
     },
     
     {
       rolearn  = "arn:aws:iam::339712807342:role/eks-pods-role"
       username = "Gradproj"
+      groups   = ["system:masters"]
+    },
+    
+    {
+      rolearn  = "arn:aws:iam::339712807342:role/eks-admin"
+      username = "role1"
       groups   = ["system:masters"]
     }
   ]
